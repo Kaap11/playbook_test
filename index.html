@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belsberg Sales Playbook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-blue: #1e40af;
+            --dark-blue: #1e3a8a;
+            --accent-green: #34d399;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--light-bg);
+        }
+        
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: white;
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+        
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 13px;
+            text-align: center;
+            opacity: 0.85;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid rgba(52, 211, 153, 0.3);
+        }
+        
+        /* Search */
+        .search-box {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 14px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .search-box::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .search-box:focus {
+            outline: none;
+            background: rgba(255,255,255,0.25);
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.3);
+        }
+        
+        /* Navigation */
+        .nav-section {
+            margin-bottom: 25px;
+        }
+        
+        .nav-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            opacity: 0.7;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .nav-item {
+            padding: 12px 16px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .nav-item:hover {
+            background: rgba(52, 211, 153, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .nav-item.active {
+            background: var(--accent-green);
+            color: var(--dark-blue);
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(52, 211, 153, 0.4);
+        }
+        
+        .nav-icon {
+            font-size: 18px;
+        }
+        
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            font-size: 18px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 60px;
+            max-width: 1200px;
+        }
+        
+        .content-section {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Typography */
+        h1 {
+            font-size: 36px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 28px;
+            color: var(--primary-blue);
+            margin: 35px 0 20px 0;
+            font-weight: 600;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--accent-green);
+        }
+        
+        h3 {
+            font-size: 22px;
+            color: var(--dark-blue);
+            margin: 28px 0 16px 0;
+            font-weight: 600;
+        }
+        
+        h4 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin: 20px 0 12px 0;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        strong {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 16px 0 16px 30px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        /* Highlight Boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.05) 0%, rgba(52, 211, 153, 0.05) 100%);
+            border-left: 4px solid var(--accent-green);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        
+        .highlight-box h4 {
+            color: var(--primary-blue);
+            margin-top: 0;
+        }
+        
+        /* Checklist */
+        .checklist {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+        
+        .checklist-item:hover {
+            background: var(--light-bg);
+        }
+        
+        .check-icon {
+            color: var(--accent-green);
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        /* Steps */
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-green);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
+        /* Info Banner */
+        .info-banner {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            padding: 24px 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 6px 20px rgba(30, 64, 175, 0.3);
+        }
+        
+        .info-banner h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        /* Welcome Section */
+        .welcome-hero {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: white;
+            border-radius: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-hero h1 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+        
+        .welcome-hero p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+        
+        /* Grid Layout for Features */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 8px 24px rgba(52, 211, 153, 0.15);
+            transform: translateY(-4px);
+        }
+        
+        .feature-card h4 {
+            color: var(--primary-blue);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 80px 20px 20px 20px;
+            }
+            
+            .content-section {
+                padding: 24px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            .welcome-hero {
+                padding: 40px 24px;
+            }
+            
+            .welcome-hero h1 {
+                font-size: 32px;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .sidebar,
+            .mobile-toggle,
+            .search-box {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+    
+    <div class="container">
+        <nav class="sidebar" id="sidebar">
+            <div class="logo">BELSBERG</div>
+            <div class="subtitle">Sales Playbook</div>
+            
+            <input type="text" class="search-box" id="searchBox" placeholder="Zoek in playbook..." onkeyup="searchContent()">
+            
+            <div class="nav-section">
+                <div class="nav-title">Inleiding</div>
+                <div class="nav-item active" onclick="showSection('intro')">
+                    <span class="nav-icon">📖</span>
+                    <span>Introductie & Gebruik</span>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-title">Hoofdstukken</div>
+                <div class="nav-item" onclick="showSection('chapter1')">
+                    <span class="nav-icon">📞</span>
+                    <span>1. Approach Calls</span>
+                </div>
+                <div class="nav-item" onclick="showSection('chapter2')">
+                    <span class="nav-icon">✅</span>
+                    <span>2. Prescreen & Kwalificatie</span>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-title">Binnenkort</div>
+                <div class="nav-item" style="opacity: 0.5; cursor: not-allowed;">
+                    <span class="nav-icon">🎯</span>
+                    <span>3. Lead Chase</span>
+                </div>
+                <div class="nav-item" style="opacity: 0.5; cursor: not-allowed;">
+                    <span class="nav-icon">📋</span>
+                    <span>4-19. Meer hoofdstukken...</span>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="main-content" id="mainContent">
+            <!-- INTRO SECTION -->
+            <div id="intro" class="section">
+                <div class="welcome-hero">
+                    <h1>🎯 De Belsberg Bijbel</h1>
+                    <p>Voor Recruitment Consultants</p>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Welkom bij het Belsberg Sales Playbook</h2>
+                    <p>Welkom bij het Belsberg Sales Playbook - jouw complete gids voor succes als recruitment consultant. Dit playbook is de "Belsberg Bijbel" waarin onze ideale manier van werken is vastgelegd.</p>
+                    
+                    <h3>Doel van dit Playbook</h3>
+                    <p>Het Sales Playbook biedt een overzicht van onze standaard werkinstructies (SOP's) voor recruitment consultants. Het primaire doel is om als referentie te dienen tijdens onboarding van nieuwe consultants en leidinggevenden houvast te geven.</p>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Hoe te Gebruiken</h2>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <h4><span class="feature-icon">🌱</span>Nieuwe Consultants</h4>
+                            <p>Volg de hoofdstukken chronologisch voor complete training</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><span class="feature-icon">⭐</span>Ervaren Consultants</h4>
+                            <p>Gebruik als naslagwerk voor specifieke situaties</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><span class="feature-icon">👔</span>Managers</h4>
+                            <p>Reference voor coaching en kwaliteitscontrole</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Structuur per Hoofdstuk</h2>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>Wat, Waarom & Hoe</strong> - Conceptuele uitleg</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>Voorbereiding</strong> - Pre-work en setup</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>Uitvoering</strong> - Stap-voor-stap proces</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>Opvolging</strong> - Follow-up en documentatie</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>Extra</strong> - Scripts, templates en tips</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>Quick Reference</strong> - Snelle checklist</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CHAPTER 1 -->
+            <div id="chapter1" class="section" style="display: none;">
+                <div class="content-section">
+                    <h1>📞 Hoofdstuk 1: Approach Calls</h1>
+                    <p style="font-size: 18px; color: var(--text-light); font-style: italic;">Canvass Candidate</p>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Wat, Waarom & Hoe</h2>
+                    
+                    <h3>Wat is een Approach Call?</h3>
+                    <p>Een approach call is het (eerste) telefonische contact met een potentiële freelancer. Het doel is niet een volledige intake, maar het creëren van interesse voor een prescreen gesprek waarin je de freelancer volledig kwalificeert.</p>
+                    
+                    <h3>Waarom zijn Approach Calls cruciaal?</h3>
+                    <ul>
+                        <li><strong>Eerste indruk:</strong> Dit bepaalt of de freelancer überhaupt met je verder wil</li>
+                        <li><strong>Netwerk opbouwen:</strong> Elke succesvolle approach call wordt een waardevolle relatie</li>
+                        <li><strong>Lead generation:</strong> Freelancers kennen andere freelancers en potentiële klanten</li>
+                        <li><strong>Marktkennis opdoen:</strong> Je houdt voeling met de markt en trends</li>
+                    </ul>
+                    
+                    <h3>Hoe voer je effectieve Approach Calls uit?</h3>
+                    <p>Door binnen 4 minuten interesse te wekken via een persoonlijke, professionele benadering die waarde toont en eindigt met een concrete vervolgafspraak.</p>
+                </div>
+                
+                <div class="content-section">
+                    <h2>1. Voorbereiding</h2>
+                    
+                    <div class="highlight-box">
+                        <h4>⏱️ Pre-Call Checklist (3 minuten totaal)</h4>
+                    </div>
+                    
+                    <h3>Profiel Research (2 minuten)</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>LinkedIn profiel bekeken:</strong> 1 specifiek detail genoteerd voor persoonlijke opening</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>CV/achtergrond:</strong> specialisatie en laatste 2 opdrachten/banen</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>Mogelijke matches:</strong> check openstaande vacatures voor quick wins</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>Netwerk overlap:</strong> gemeenschappelijke connecties geïdentificeerd</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Script Personalisatie (30 seconden)</h3>
+                    <ul>
+                        <li>1 specifieke opmerking voorbereid over hun achtergrond</li>
+                        <li>Relevante Belsberg USP gekozen die past bij hun profiel</li>
+                        <li>Exit-strategie klaar: hoe afsluiten als niet geïnteresseerd</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h2>2. Uitvoering - 4-Staps Proces</h2>
+                    
+                    <div class="info-banner">
+                        <h3>⏱️ Totale Duur: 4 minuten</h3>
+                        <p>Efficiënt, to-the-point, en met een duidelijk doel</p>
+                    </div>
+                    
+                    <h3><span class="step-number">1</span>Opening (30 seconden)</h3>
+                    <p><strong>Doel:</strong> Aandacht pakken en directe introductie</p>
+                    <p>Kies de juiste opening op basis van hoe je de kandidaat hebt gevonden:</p>
+                    <ul>
+                        <li><strong>LinkedIn approach:</strong> Zie Addendum E, Script E1</li>
+                        <li><strong>Referral approach:</strong> Zie Addendum E, Script E2</li>
+                        <li><strong>Cold call:</strong> Zie Addendum E, Script E3</li>
+                    </ul>
+                    
+                    <h3><span class="step-number">2</span>Pitch (90 seconden)</h3>
+                    <p><strong>Doel:</strong> Positionering en waardepropositie</p>
+                    
+                    <div class="highlight-box">
+                        <h4>Core Pitch:</h4>
+                        <p>"Belsberg is dé specialist voor freelance HR en HRIT professionals. We werken met 200+ consultants en focussen 100% op deze niche. Wat ons uniek maakt is dat we direct contact hebben met hiring managers en vaak exclusieve toegang krijgen tot interessante opdrachten."</p>
+                    </div>
+                    
+                    <h4>USP Selectie op basis van profiel:</h4>
+                    <ul>
+                        <li><strong>Ervaren professionals:</strong> "We werken met senior managers die waarde erkennen"</li>
+                        <li><strong>Technische specialisten:</strong> "Directe toegang tot implementatie- en transformatieprojecten"</li>
+                        <li><strong>Interim managers:</strong> "Strategische opdrachten bij organisaties in verandering"</li>
+                    </ul>
+                    
+                    <h3><span class="step-number">3</span>Vragen (60 seconden)</h3>
+                    <p><strong>Doel:</strong> Relevantie en interesse checken</p>
+                    
+                    <h4>De 2 Kernvragen:</h4>
+                    <ol>
+                        <li><strong>Beschikbaarheid:</strong> "Ben je momenteel beschikbaar als freelancer of heb je daar interesse in?"</li>
+                        <li><strong>Expertise match:</strong> "Je achtergrond met [specifiek gebied] is interessant - is dat ook waar je je graag op wilt richten?"</li>
+                    </ol>
+                    
+                    <h4>Aanvullende vragen indien tijd:</h4>
+                    <ul>
+                        <li>Type opdrachten voorkeur?</li>
+                        <li>Andere bedrijven contact gehad?</li>
+                        <li>Netwerk referrals beschikbaar?</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p>Voor verdiepende vraagstelling en gesprekscontrole, zie <strong>Hoofdstuk 4</strong>.</p>
+                    </div>
+                    
+                    <h3><span class="step-number">4</span>Vervolg (30 seconden)</h3>
+                    <p><strong>Doel:</strong> Concrete next step plannen</p>
+                    
+                    <h4>Bij positieve respons:</h4>
+                    <p>"Super! Ik zou je graag beter leren kennen voor als er interessante opdrachten langskomen. Kunnen we een kwartier inplannen deze week? Wat past jou beter: [optie 1] of [optie 2]?"</p>
+                    
+                    <h4>Directe agenda controle:</h4>
+                    <ul>
+                        <li>Heb je woensdag om 14:00?</li>
+                        <li>Of is donderdag 10:00 beter?</li>
+                    </ul>
+                    
+                    <h4>Bij bezwaren:</h4>
+                    <p>Zie Addendum E, Scripts E4-E6 voor veelvoorkomende bezwaren. Zie Hoofdstuk 4 voor de complete ASQ-methode.</p>
+                </div>
+                
+                <div class="content-section">
+                    <h2>3. Opvolging</h2>
+                    
+                    <div class="highlight-box">
+                        <h4>⏱️ Direct na de Call (binnen 5 minuten)</h4>
+                    </div>
+                    
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Prescreen afspraak in agenda + reminder 24u van tevoren</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Bullhorn: nieuwe contactpersoon aangemaakt met alle details</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Follow-up mail: bevestiging afspraak + wat we gaan bespreken (zie Addendum D, Template D1)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Voorbereiding prescreen: specifieke vragen voorbereid op basis van approach call</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Quick Reference - Must Do's</h2>
+                    
+                    <h3>Voorbereiding</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>LinkedIn profiel bekeken (1 specifiek detail)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>CV/achtergrond: laatste 2 rollen bekend</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Openstaande vacatures gecheckt</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Script gekozen (LinkedIn/Referral/Cold - zie Addendum E)</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Tijdens Call</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Persoonlijke opening met specifiek detail</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Belsberg USP binnen 90 seconden</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>2 kernvragen gesteld</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Concrete vervolgafspraak ingepland</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Opvolging</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Bevestigingsmail binnen 5 minuten (Template D1)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>CRM direct bijgewerkt</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Prescreen voorbereid</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CHAPTER 2 -->
+            <div id="chapter2" class="section" style="display: none;">
+                <div class="content-section">
+                    <h1>✅ Hoofdstuk 2: Prescreen & Kandidaat Kwalificatie</h1>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Wat, Waarom & Hoe</h2>
+                    
+                    <h3>Wat is een Prescreen & Kandidaat Kwalificatie?</h3>
+                    <p>Een gestructureerd gesprek van 20-30 minuten met een freelance professional waarin je zowel de kandidaat leert kennen voor toekomstige kansen als direct kwalificeert voor specifieke opdrachten. Dit geïntegreerde proces combineert kennismaking met doelgerichte screening via het GASS framework voor snelle freelance plaatsingen.</p>
+                    
+                    <h3>Waarom zijn geïntegreerde Prescreen & Kwalificatie cruciaal voor freelance succes?</h3>
+                    <ul>
+                        <li><strong>Snelheid is koning:</strong> In de freelance markt winnen de eerste kwalitatief sterke profielen - efficiënte screening binnen 30 minuten geeft je voorsprong</li>
+                        <li><strong>Dubbele efficiency:</strong> Eén gesprek dient zowel relatieopbouw voor lange termijn als directe kwalificatie voor huidige opdrachten</li>
+                        <li><strong>Marktinzicht & direct resultaat:</strong> Je verzamelt marktkennis én levert direct plaatsbare kandidaten</li>
+                        <li><strong>Plaatsbaarheid:</strong> GASS is een systematisch kwalificatie-framework dat de plaatsbaarheid van kandidaten beoordeelt via 4 criteria</li>
+                        <li><strong>Lead generatie:</strong> Gemiddeld levert elke prescreen waardevolle leads op voor nieuwe business</li>
+                        <li><strong>Relatieopbouw:</strong> Je creëert vertrouwen en partnership voor zowel huidige als toekomstige kansen</li>
+                    </ul>
+                    
+                    <h3>Hoe voer je een effectieve geïntegreerde Prescreen & Kwalificatie uit?</h3>
+                    <p>Via een gestroomlijnde 6-fasen structuur die binnen 30 minuten zowel volledige kwalificatie via GASS framework levert als een waardevolle relatie opbouwt voor de lange termijn.</p>
+                </div>
+                
+                <div class="content-section">
+                    <h2>1. Voorbereiding</h2>
+                    
+                    <div class="highlight-box">
+                        <h4>⏱️ Pre-Call Setup (5 minuten totaal)</h4>
+                    </div>
+                    
+                    <h3>Profiel Research & Context (3 minuten)</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>LinkedIn profiel bekeken: 1 specifiek detail genoteerd voor persoonlijke opening</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>CV/achtergrond: specialisatie en laatste 2 opdrachten/banen</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Mogelijke matches: check openstaande vacatures voor directe kwalificatie mogelijkheden</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Netwerk overlap: gemeenschappelijke connecties geïdentificeerd</div>
+                        </div>
+                    </div>
+                    
+                    <h3>GASS Framework Voorbereiding (voor specifieke vacatures - 2 minuten)</h3>
+                    <ul>
+                        <li><strong>G - GETS:</strong> Technische competenties, ervaring niveau, culturele fit voor specifieke rol</li>
+                        <li><strong>A - ACCEPTS:</strong> Motivatie niveau, commerciële parameters, timing fit</li>
+                        <li><strong>S - STARTS:</strong> Concurrerende kansen, beschikbaarheid, toewijding niveau</li>
+                        <li><strong>S - STAYS:</strong> Project duur verwachting, ontwikkeling fit, betrokkenheid potentieel</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h2>2. Uitvoering - 6 Geïntegreerde Fasen</h2>
+                    
+                    <div class="info-banner">
+                        <h3>⏱️ Totale Duur: 25-30 minuten</h3>
+                        <p>Efficiënt gestructureerd gesprek met duidelijke fases</p>
+                    </div>
+                    
+                    <h3><span class="step-number">1</span>Persoonlijke Opening & Agenda Setting (3 minuten)</h3>
+                    
+                    <h4>Persoonlijke Opener:</h4>
+                    <p>"Hi [naam], fijn dat je tijd vrijmaakt! Ik zag op LinkedIn dat je [specifiek detail from research]. Dat vond ik interessant omdat..."</p>
+                    
+                    <h4>Agenda & Verwachtingen:</h4>
+                    <p>"We hebben 25-30 minuten. Ik wil je graag leren kennen en kijken waar we elkaar kunnen helpen. [Indien specifieke vacature:] Daarnaast heb ik een interessante [functietitel] rol die mogelijk goed past. Wat wil jij nog op de agenda hebben?"</p>
+                    
+                    <div class="highlight-box">
+                        <p>Voor algemene gespreksstructuur principes, zie <strong>Hoofdstuk 4</strong>.</p>
+                    </div>
+                    
+                    <h3><span class="step-number">2</span>Achtergrond & Competentie Assessment (8 minuten)</h3>
+                    <p><strong>Integreert GASS "G - GETS" beoordeling</strong></p>
+                    
+                    <h4>Algemene Achtergrond (3 minuten):</h4>
+                    <ul>
+                        <li>"Vertel me over jezelf - waar ben je goed in en wat doe je het liefst?"</li>
+                        <li>"Hoe ben je in de freelance wereld terechtgekomen?"</li>
+                        <li>"Wat is je specialisatie binnen [vakgebied]?"</li>
+                    </ul>
+                    
+                    <h4>Technische Competentie Exploratie - OPTIE A (5 minuten - indien specifieke rol):</h4>
+                    <p>"Ik heb een [functietitel] rol bij [klanttype]. Ze zoeken iemand met [key requirements]. Hoe is jouw ervaring daarmee?"</p>
+                    
+                    <h4>Technische Competentie Exploratie - OPTIE B (5 minuten - indien GEEN specifieke rol):</h4>
+                    <p>"Onze klanten zoeken over het algemeen professionals met ['hot' requirements]. Hoe is jouw ervaring daarmee?"</p>
+                    
+                    <h4>STAR Methode Quick Assessment:</h4>
+                    <p>"Kun je me een voorbeeld geven van een project waar je [relevante vaardigheid] hebt toegepast? Wat was de situatie, wat was jouw taak, welke acties nam je en wat was het resultaat?"</p>
+                    
+                    <h4>Culturele Fit Quick Check:</h4>
+                    <ul>
+                        <li>"Hoe werk je het liefst? Groot team, klein team, veel sturing, veel vrijheid?"</li>
+                        <li>"Wat motiveert je het meest in opdrachten?"</li>
+                    </ul>
+                    
+                    <h3><span class="step-number">3</span>Praktische Zaken & ACCEPTS Assessment (7 minuten)</h3>
+                    <p><strong>Integreert GASS "A - ACCEPTS" beoordeling</strong></p>
+                    
+                    <h4>Beschikbaarheid & Voorkeuren:</h4>
+                    <ul>
+                        <li>"Per wanneer ben je beschikbaar voor nieuwe opdrachten?"</li>
+                        <li>"Wat is je ideale opdracht qua duur? [Indien specifieke rol:] Deze is voor [duur]."</li>
+                        <li>"Hoe zie je reizen/on-site werken? [Indien specifieke rol:] Dit is [locatie details]."</li>
+                    </ul>
+                    
+                    <h4>Commerciële Parameters:</h4>
+                    <ul>
+                        <li>"Wat is je tarief range momenteel?"</li>
+                        <li>"[Indien specifieke rol:] Het budget voor deze rol is rond €[tarief]/dag. Hoe klinkt dat?"</li>
+                        <li>"Ben je flexibel op voorwaarden als andere aspecten extra aantrekkelijk zijn?"</li>
+                    </ul>
+                    
+                    <h4>Motivatie & Interesse (indien specifieke rol):</h4>
+                    <ul>
+                        <li>"Op een schaal van 1-10, hoe interessant klinkt deze rol voor je?"</li>
+                        <li>"Wat spreekt je aan in [specifieke aspecten van de rol]?"</li>
+                        <li>"Wat zou je kunnen weerhouden om erin te duiken?"</li>
+                    </ul>
+                    
+                    <h3><span class="step-number">4</span>STARTS & STAYS Assessment + Marktkennis (7 minuten)</h3>
+                    <p><strong>Integreert GASS "S - STARTS" en "S - STAYS" + Lead generatie</strong></p>
+                    
+                    <h4>Concurrentie & Beschikbaarheid (STARTS):</h4>
+                    <ul>
+                        <li>"Heb je lopende gesprekken of processen bij andere bureaus?"</li>
+                        <li>"Wat zou je tegenhouden om snel te starten als de match goed is?"</li>
+                        <li>"Hoe groot is de kans dat je huidige opdracht wordt verlengd?"</li>
+                    </ul>
+                    
+                    <h4>Project Commitment (STAYS - indien specifieke rol):</h4>
+                    <ul>
+                        <li>"Heb je ervaring met [type project] van deze duur?"</li>
+                        <li>"Wat heb je nodig om [duur] betrokken en productief te blijven?"</li>
+                        <li>"Hoe past dit in je langetermijn carrièreplanning?"</li>
+                    </ul>
+                    
+                    <h4>Marktkennis & Lead Generatie:</h4>
+                    <ul>
+                        <li>"Welke bedrijven benaderen je momenteel?"</li>
+                        <li>"Ken je collega's in jouw vakgebied die ook naar opdrachten zoeken?"</li>
+                        <li>"Waar zie jij kansen in de markt die wij misschien missen?"</li>
+                        <li>"Welke trends zie je in [vakgebied]?"</li>
+                    </ul>
+                    
+                    <h3><span class="step-number">5</span>Belsberg Positionering & Samenwerking (3 minuten)</h3>
+                    
+                    <h4>Belsberg USP's:</h4>
+                    <p>"Wat ons onderscheidt: wij zijn gespecialiseerd in [relevante specialisatie], we hebben een groot netwerk van [relevante bedrijven], en we kijken altijd naar de lange termijn samenwerking."</p>
+                    <p>"We werken met bedrijven als [relevante client names], en focussen op [relevant benefit]."</p>
+                    
+                    <h4>Partnership Benadering:</h4>
+                    <p>"Ik zie recruitment als partnership. Jij helpt mij de markt begrijpen, ik help jou aan de beste opdrachten."</p>
+                    <p>"Ook als deze specifieke rol niet past, wil ik je graag in ons netwerk voor toekomstige kansen."</p>
+                    
+                    <h3><span class="step-number">6</span>Vervolgstappen & Commitment (2 minuten)</h3>
+                    
+                    <h4>Scenario A - Sterke Match (GASS 3.5+):</h4>
+                    <p>"Ik ben positief over de match met deze rol. Kan ik je vandaag nog voorstellen aan de klant?"</p>
+                    <p>"Wanneer zou je beschikbaar zijn voor een intake gesprek?"</p>
+                    <p>"Stuur je je meest recente CV vandaag nog door?"</p>
+                    
+                    <h4>Scenario B - Goede Match (GASS 2.5-3.5):</h4>
+                    <p>"Je bent zeker interessant voor deze rol. Ik ga je voorstellen en we kijken wat de klant terugzegt."</p>
+                    <p>"Wanneer ben je beschikbaar voor feedback deze week?"</p>
+                    
+                    <h4>Scenario C - Geen Match deze Rol:</h4>
+                    <p>"Voor deze specifieke rol zie ik nog niet de perfecte match, maar ik wil je zeker in ons netwerk."</p>
+                    <p>"Zodra er rollen komen die beter passen, neem ik contact op."</p>
+                    
+                    <h4>Algemene Vervolgstappen:</h4>
+                    <p>"Ik voeg je toe aan ons preferred network en houd je op de hoogte wanneer we relevante interessante rollen hebben. Uiteraard mag je me altijd benaderen als je relevante kansen ziet waar je via ons voorgesteld wilt worden."</p>
+                </div>
+                
+                <div class="content-section">
+                    <h2>3. Opvolging</h2>
+                    
+                    <div class="highlight-box">
+                        <h4>⏱️ Direct na Gesprek (binnen 15 minuten)</h4>
+                    </div>
+                    
+                    <h3>GASS Score Documentatie (indien specifieke rol gekwalificeerd):</h3>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <h4><span class="feature-icon">G</span>GETS Score (1-5)</h4>
+                            <p>Technische match + culturele fit + interview potential</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><span class="feature-icon">A</span>ACCEPTS Score (1-5)</h4>
+                            <p>Commerciële fit + motivatie + praktische aspecten</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><span class="feature-icon">S</span>STARTS Score (1-5)</h4>
+                            <p>Beschikbaarheid + concurrentie + toewijding</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><span class="feature-icon">S</span>STAYS Score (1-5)</h4>
+                            <p>Project commitment + ontwikkeling fit + betrokkenheid</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Totaal GASS Score Interpretatie:</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>4.0-5.0:</strong> Direct voorstellen met hoge verwachtingen</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div><strong>3.0-3.9:</strong> Voorstellen met coaching op zwakke punten</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">⚠️</span>
+                            <div><strong>2.0-2.9:</strong> Alleen voorstellen na klant briefing over risico's</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">❌</span>
+                            <div><strong>&lt;2.0:</strong> Niet voorstellen voor deze rol, toekomstige kansen exploreren</div>
+                        </div>
+                    </div>
+                    
+                    <h3>CRM Documentatie:</h3>
+                    <ul>
+                        <li>Volledige gesprek notities in Bullhorn vastgelegd</li>
+                        <li>GASS scores met onderbouwing (indien van toepassing)</li>
+                        <li>Lead informatie verwerkt en getagd voor opvolging</li>
+                        <li>Marktkennis gedeeld met team</li>
+                        <li>Follow-up acties in CRM gepland</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Extra: GASS Vragen</h2>
+                    
+                    <h3>GASS Quick Assessment Vragen per Categorie</h3>
+                    
+                    <h4>GETS (Competentie) - Snelle Assessment:</h4>
+                    <ul>
+                        <li>"Op welk niveau schat je je [key skill] in? (1-10)"</li>
+                        <li>"Wat was je meest complexe [relevante project type]?"</li>
+                        <li>"Hoe zou je [typische uitdaging] aanpakken?"</li>
+                    </ul>
+                    
+                    <h4>ACCEPTS (Motivatie) - Snelle Assessment:</h4>
+                    <ul>
+                        <li>"Wat maakt een opdracht echt interessant voor jou?"</li>
+                        <li>"Op schaal 1-10, hoe enthousiast klinkt deze rol?"</li>
+                        <li>"Wat zijn je dealbreakers in opdrachten?"</li>
+                    </ul>
+                    
+                    <h4>STARTS (Beschikbaarheid) - Snelle Assessment:</h4>
+                    <ul>
+                        <li>"Hoe snel kun je starten als alles perfect past?"</li>
+                        <li>"Wat zijn je huidige verplichtingen?"</li>
+                        <li>"Op schaal 1-10, hoe toegewijd ben je aan het vinden van een nieuwe rol?"</li>
+                    </ul>
+                    
+                    <h4>STAYS (Commitment) - Snelle Assessment:</h4>
+                    <ul>
+                        <li>"Wat heb je nodig om [project duur] betrokken te blijven?"</li>
+                        <li>"Hoe zie je deze rol in je langetermijn planning?"</li>
+                        <li>"Wat motiveert je om projecten succesvol af te maken?"</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Timing & Flow Management</h2>
+                    
+                    <h3>Tijd Management per Fase:</h3>
+                    <ul>
+                        <li><strong>Fase 1 (Opening):</strong> Max 3 minuten - als langer, onderbreek vriendelijk</li>
+                        <li><strong>Fase 2 (Competentie):</strong> 8 minuten - focus op key skills, geen details</li>
+                        <li><strong>Fase 3 (Praktisch):</strong> 7 minuten - direct en zakelijk</li>
+                        <li><strong>Fase 4 (STARTS/STAYS + Markt):</strong> 7 minuten - balans kwalificatie en leads</li>
+                        <li><strong>Fase 5 (Belsberg):</strong> 3 minuten - kort en krachtig</li>
+                        <li><strong>Fase 6 (Vervolgstappen):</strong> 2 minuten - concrete afspraken</li>
+                    </ul>
+                    
+                    <h3>Flexibiliteit op basis van situatie:</h3>
+                    <ul>
+                        <li><strong>Sterke match zichtbaar:</strong> Meer tijd aan GASS kwalificatie</li>
+                        <li><strong>Geen directe match:</strong> Meer tijd aan marktkennis en leads</li>
+                        <li><strong>Ervaren kandidaat:</strong> Sneller door basis vragen</li>
+                        <li><strong>Nieuwe kandidaat:</strong> Meer context en uitleg</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h2>Quick Reference Checklist</h2>
+                    
+                    <h3>Pre-Call Must-Haves</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>LinkedIn profiel bekeken (1 specifiek detail)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Openstaande vacatures gecheckt voor matches</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>GASS criteria voorbereid (indien match mogelijk)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Timing optimaal (9:00-11:30 of 14:00-16:30)</div>
+                        </div>
+                    </div>
+                    
+                    <h3>During Call Must-Do's</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Persoonlijke opening met LinkedIn detail</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Agenda duidelijk gecommuniceerd (30 min, 6 fasen)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>GASS framework toegepast (indien specifieke rol)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Belsberg USP's effectief gepositioneerd</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Minimaal 2 leads of market insights verzameld</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Concrete vervolgstappen afgesproken</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Post-Call Must-Completes</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>GASS scores gedocumenteerd (indien van toepassing)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Volledige notities in CRM binnen 15 minuten</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Follow-up mail binnen 24 uur</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Lead informatie verwerkt binnen 48 uur</div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-icon">✅</span>
+                            <div>Marktkennis gedeeld met team</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Show section
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Close mobile sidebar
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+        
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        // Search functionality
+        function searchContent() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm) || searchTerm === '') {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggleButton = document.querySelector('.mobile-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !toggleButton.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

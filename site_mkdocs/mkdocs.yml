@@ -6,6 +6,42 @@ docs_dir: docs
 site_dir: ../docs
 use_directory_urls: false
 
+nav:
+
+
+  - Inleiding: index.md
+
+  - 1. Approach Calls (Canvass Candidate): hoofdstuk-1-approach-calls-canvass-candidate.md
+  - 2. Prescreen & Kandidaat Kwalificatie: hoofdstuk-2-prescreen-kandidaat-kwalificatie.md
+  - 3. Werkwijze & Commitment Check: hoofdstuk-3-werkwijze-commitment.md
+  - 4. Gesprekstechnieken & Controle: 04_gesprekstechnieken-controle.md
+  - 5. Lead Chase – Van Signaal naar Opdracht: hoofdstuk-5-lead-chase---van-signaal-naar-opdracht.md
+  - 6. Business Development – Prospects: hoofdstuk-6-business-development-prospects.md
+  - 7. Business Development – Existing Clients: hoofdstuk-7-business-development-existing-clients.md
+  - 8. Job Intake: hoofdstuk-8-job-intake.md
+  - 9. Risking & Closing Framework: 09_risking-closing.md
+  - 10. Sourcing & Candidate Search Strategy: hoofdstuk-10-candidate-sourcing.md
+  - 11. Candidate Pitching & Sendouts: hoofdstuk-11-candidate-pitching-sendouts.md
+  - 12. Interview Prep (Kandidaat & Klant): hoofdstuk-12-interview-prep-kandidaat-klant-incl-verwachtingsmanagement.md
+  - 13. Interview Monitoring: hoofdstuk-13-interview-monitoring.md
+  - 14. Debrief & Pre-Close: hoofdstuk-14-debrief-pre-close-kandidaat-klant.md
+  - 15. Closing the Deal: hoofdstuk-15-closing-the-deal.md
+  - 16. Langetermijn Relatiebeheer: hoofdstuk-16-langetermijn-relatiebeheer.md
+
+  - Slotwoord – Implementatie & Succes: slotwoord-implementatie-succes.md
+
+  - "📎 Addenda":
+    - A. Strategische vraagstelling: addendum-a-strategische-vraagstelling-framework.md
+    - B. 8 Criteria van Invulbaarheid: addendum-b-8-criteria-van-invulbaarheid-assessment-framework.md
+    - C. GASS Score: addendum-c-gass-kandidaat-assessment-framework.md
+    - D. Email Templates: addendum-d-email-templates-bibliotheek.md
+    - E. Scripts: addendum-e-scripts-bibliotheek.md
+    - F. Bullhorn Intake Templates: addendum-f-bullhorn-intake-templates.md
+    - G. 80/20 Regel: addendum-g-80-20-regel.md
+    - H. Top 10 Best Practices: addendum-h-top-10-best-practices.md
+
+
+
 theme:
   name: material
   features:

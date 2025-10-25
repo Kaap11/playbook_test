@@ -1,3 +1,3 @@
-# Belsberg Sales Playbook
+# Inleiding
 
-Welkom! (tijdelijke startpagina)
+Welkom bij het Belsberg Sales Playbook.

@@ -1,11 +1,26 @@
+<<<<<<< Updated upstream
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+:root{
+  --md-primary-fg-color: #4C717A; /* livid */
+  --md-accent-fg-color:  #7DB5C3; /* sky   */
+}
+.md-typeset { font-family: 'Space Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+.md-typeset h1, .md-typeset h2, .md-typeset h3 { color: #4C717A; }
+a { color: #4C717A; }
+
+=======
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
 :root{
-  --belsberg-livid:#4C717A; --belsberg-sky:#7DB5C3; --belsberg-navy:#003D50;
-  --belsberg-lime:#D2F8C0; --belsberg-lav:#B0A1F9;
+  --belsberg-livid:#4C717A;
+  --belsberg-sky:#7DB5C3;
+  --belsberg-navy:#003D50;
+  --belsberg-lime:#D2F8C0;
+  --belsberg-lav:#B0A1F9;
   --md-primary-fg-color: var(--belsberg-livid);
-  --md-accent-fg-color: var(--belsberg-sky);
+  --md-accent-fg-color:  var(--belsberg-sky);
 }
-.md-typeset { font-family:'Space Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
-.md-typeset h1,.md-typeset h2,.md-typeset h3{ color: var(--belsberg-livid) }
-a{ color: var(--belsberg-livid) }
+.md-typeset { font-family: 'Space Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+.md-typeset h1, .md-typeset h2, .md-typeset h3 { color: var(--belsberg-livid); }
+a { color: var(--belsberg-livid); }
+>>>>>>> Stashed changes

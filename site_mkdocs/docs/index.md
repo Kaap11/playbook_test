@@ -15,6 +15,29 @@ werkinstructies (SOP's) voor recruitment consultants. Het primaire doel
 is om als referentie te dienen tijdens onboarding van nieuwe consultants
 en leidinggevenden houvast te geven.
 
+#### **De Recruitment Cyclus — De rode draad in jouw succes**
+
+In dit playbook staat één principe centraal: Recruitment is een continu proces.
+Wie grip heeft op alle vier onderdelen van de Recruitment Cycle, heeft grip op succes:
+
+- **Candidate Sourcing** – Voldoende passende kandidaten in de pijplijn
+
+- **Working on a Candidate** – Momentum houden richting plaatsing
+
+- **Working on a Job** – Regie & verwachtingsmanagement bij de opdrachtgever
+
+- **Business Development** – Nieuwe kansen creëren voor duurzame groei
+
+Deze cyclus vormt de basis voor elk hoofdstuk in dit playbook.
+Door continu te sturen op Process Control, kun jij:
+✅ sneller matchen
+✅ hogere conversie behalen
+✅ tevreden klanten én kandidaten creëren
+
+Tijdens trainingen werken we steeds vanuit deze cyclus:
+Waar zit jouw grootste bottleneck? Daar ligt jouw groeipotentieel.
+Zo krijg je het maximale resultaat met minimale verspilling van tijd en energie.
+
 #### **Hoe te Gebruiken**
 
 - **Nieuwe consultants**: Volg de hoofdstukken chronologisch voor
